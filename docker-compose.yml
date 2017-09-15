@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app/src
+    environment:
+      - DB_HOST=db
+      - DB_ADAPTER=postgresql
+      - DB_USER=postgres
+    depends_on:
+      - db
+    ports:
+      - 3001:3000
+  db:
+    image: postgres:9.5
+    volumes:
+      - db_data:/var/lib/postgresql
+    logging:
+      driver: none
+volumes:
+  db_data:
